@@ -1,2 +1,21 @@
 <h2>新規投稿ページ</h2>
-  
+  <%= form_with model: @post do |f| %>
+    <h4>投稿のタイトル</h4>
+    <%= f.text_field :title %>
+
+    <h4>!画像表示部分!</h4>
+    <%= f.file_field :post_image, accept: "image/*" %>
+
+    <h4>撮影機材・設定</h4>
+    <p>カメラボディ</p><%= f.text_field :camara %>
+    <p>使用レンズ</p><%= f.text_field :lens %>
+    <p>iso</p><%= f.text_field :iso %>
+    <p>シャッタースピード</p><%= f.text_field :shutter_speed %>
+    <p>f値</p><%= f.text_field :f_number %>
+    <p>備考</p><%= f.text_area :remark %>
+
+    <h4>投稿本文</h4>
+    <%= f.text_area :body %>
+
+    <%= f.submit '投稿する' %>
+  <% end %>
