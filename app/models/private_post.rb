@@ -1,0 +1,2 @@
+class PrivatePost < ApplicationRecord
+end
