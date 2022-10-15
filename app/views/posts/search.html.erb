@@ -1,0 +1,7 @@
+ <h2>検索結果 "<%= @keyword %>"</h2>
+  <ul>
+  <% @posts.each do |post| %>
+    <div><%= post.title %></div>
+    <div><%= image_tag post.post_image, size: "200x200" %></div>
+  <% end %>
+  </ul>
