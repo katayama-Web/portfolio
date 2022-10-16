@@ -14,11 +14,14 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 #ユーザー
   resources :posts do
+    resource :favorites, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy]
     collection do
       get 'search'
     end
   end
-  
+
+
   #管理者
   namespace :admin do
     resources :users

@@ -13,6 +13,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @post_comment = PostComment.new
+  end
+
   def search
     if params[:keyword].present?
       @posts = Post.where("body LIKE ?", "%#{params[:keyword]}%")
@@ -27,4 +32,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :body, :post_image, :camara, :lens, :iso, :f_number, :shutter_speed, :remark)
   end
+
 end

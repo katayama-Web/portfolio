@@ -1,0 +1,37 @@
+<%= @post.title %>
+<%= image_tag @post.post_image, size: "200x200" %>
+<div>
+  <h4>撮影機材・設定</h4>
+  <%= @post.camara %>
+  <%= @post.lens %>
+  <%= @post.iso %>
+  <%= @post.shutter_speed %>
+  <%= @post.f_number %>
+  <%= @post.remark %>
+</div>
+<div>
+  <h4>撮影した場所</h4>
+  <%= @post.location %>
+  <h4>撮影日時</h4>
+  <%= @post.shooting_datetime %>
+  <h4>本文</h4>
+  <%= @post.body %>
+</div>
+
+<div>
+  <p>コメント件数：<%= @post.post_comments.count %></p>
+  <% @post.post_comments.each do |post_comment| %>
+    
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if post_comment.user == current_user %>
+      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@post, @post_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
