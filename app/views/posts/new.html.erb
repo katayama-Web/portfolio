@@ -17,5 +17,9 @@
     <h4>投稿本文</h4>
     <%= f.text_area :body %>
 
+    <h4>投稿ステータス</h4>
+    <td><%= f.radio_button :status, :public %><%= f.label :status, "公開", class: "text-active" %></td>
+    <td><%= f.radio_button :status, :private %><%= f.label :status, "非公開", class: "text-invalid" %></td>
+
     <%= f.submit '投稿する' %>
   <% end %>

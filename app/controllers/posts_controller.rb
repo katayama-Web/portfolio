@@ -4,9 +4,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.save
-    redirect_to ''
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+    @post.save
+    redirect_to posts_path
   end
 
   def index
@@ -16,6 +17,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    if @post.status_private? && @post.user != current_user
+      respond_to do |format|
+        format.html { redirect_to posts_path, notice: 'このページにはアクセスできません' }
+      end
+    end
   end
 
   def search
@@ -30,7 +36,11 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :camara, :lens, :iso, :f_number, :shutter_speed, :remark)
+    params.require(:post).permit(:title, :body, :post_image, :camara, :lens, :iso, :f_number, :shutter_speed, :remark, :status, :user_id)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
 end
