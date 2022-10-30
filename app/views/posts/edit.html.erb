@@ -1,0 +1,39 @@
+<%= form_with model: @post do |f| %>
+<%= image_tag @post.post_image, size: "200x200" %>
+<%= f.file_field :post_image, placeholder: "投稿画像", accept: "image/*" %>
+
+<div>
+  <h4>撮影機材・設定</h4>
+  <%= f.text_field :camara %>
+  <%= f.text_field :lens %>
+  <%= f.text_field :iso %>
+  <%= f.text_field :shutter_speed %>
+  <%= f.text_field :f_number %>
+  <%= f.text_area :remark %>
+</div>
+<div>
+  <h4>撮影した場所</h4>
+  <%= f.text_field :location %>
+  <h4>撮影日時</h4>
+  <%= f.text_field :shooting_datetime %>
+  <h4>本文</h4>
+  <%= f.text_field :body %>
+</div>
+
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+
+  <h4>本文</h4>
+  <%= f.text_area :body %>
+
+  <td><%= f.label :status, "投稿ステータス" %></td>
+  <td class="select_field">
+		<%= f.radio_button :status, :public %>
+		<%= f.label :status, "公開", class: "text-active" %>
+		<%= f.radio_button :status, :private %>
+		<%= f.label :status, "非公開", class: "text-invalid" %>
+	</td>
+
+  <%= f.submit '保存' %>
+
+<% end %>

@@ -48,3 +48,8 @@
       <% end %>
     </p>
   <% end %>
+  <% if @user == current_user %>
+    <p><%= link_to "投稿編集", edit_post_path(@post) %></p>
+    <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
+  <% end %>
+  

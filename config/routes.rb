@@ -15,9 +15,11 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 #ユーザー
   root to: 'posts#index'
   get "about" => "users#about"
-  get "mypage" => "users#mypage"
-  get "users/:id/favorites" => "users#favorites"
+  get 'mypage' => 'users#mypage'
+  get 'users/:id/favorites' => 'users#favorites', as: 'favorite_posts'
+  get "users/:id/privates" => "users#privates", as: 'private_posts'
   resources :users
+  delete 'posts/:id' => 'posts#destroy', as: 'destroy_post'
   resources :posts do
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
