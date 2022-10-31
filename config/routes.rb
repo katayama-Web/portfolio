@@ -19,6 +19,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   get 'users/:id/favorites' => 'users#favorites', as: 'favorite_posts'
   get "users/:id/privates" => "users#privates", as: 'private_posts'
   resources :users
+  resources :genres
   delete 'posts/:id' => 'posts#destroy', as: 'destroy_post'
   resources :posts do
     resource :favorites, only: [:create, :destroy]

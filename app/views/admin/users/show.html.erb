@@ -7,3 +7,5 @@
   <div><%= post.title %></div>
   <div><%= image_tag post.post_image, size: "200x200" %></div>
 <% end %>
+
+<%= link_to "ユーザー管理画面へ", edit_admin_user_path(@user) %>
