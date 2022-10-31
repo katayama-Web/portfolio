@@ -12,29 +12,29 @@
 
   <body>
     <header class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
-      <div class="header-content">
-      <%= link_to 'hishatai', (admin_signed_in? ? admin_posts_path : root_path ), class: "logo" %>
-        <ul class="flex">
-          <% if admin_signed_in? %>
-            <li><%= link_to 'ユーザー一覧',  admin_users_path %></li>
-            <li><%= link_to 'ジャンル管理',  new_admin_genre_path %></li>
-            <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-          <% elsif user_signed_in? %>
-            <li><%= link_to '地図検索', root_path %></li>
-            <li><%= link_to '投稿する', new_post_path %></li>
-            <li><%= link_to 'マイページ', mypage_path %></li>
-            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to 'About', about_path %></li>
-            <li><%= link_to '新規登録', new_user_registration_path %></li>
-            <li><%= link_to 'ログイン', new_user_session_path %></li>
-          <% end %>
-        </ul>
+          <nav class="navbar navbar-expand-lg navbar-light text-dark bg-dark" id="home">
+            <%= link_to 'hishatai', (admin_signed_in? ? admin_posts_path : root_path ), class: "nav-link text-white" %>
 
-
-      </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <% if admin_signed_in? %>
+                <li><%= link_to 'ユーザー一覧',  admin_users_path, class: "nav-link text-white" %></li>
+                <li><%= link_to 'ジャンル管理',  new_admin_genre_path, class: "nav-link text-white" %></li>
+                <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link text-white" %></li>
+              <% elsif user_signed_in? %>
+                <li><%= link_to '地図検索', root_path, class: "nav-link text-white" %></li>
+                <li><%= link_to '投稿する', new_post_path, class: "nav-link text-white" %></li>
+                <li><%= link_to 'マイページ', mypage_path, class: "nav-link text-white" %></li>
+                <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-white" %></li>
+              <% else %>
+                <li><%= link_to 'About', about_path, class: "nav-link text-white" %></li>
+                <li><%= link_to '新規登録', new_user_registration_path, class: "nav-link text-white" %></li>
+                <li><%= link_to 'ログイン', new_user_session_path, class: "nav-link text-white" %></li>
+              <% end %>
+             </ul>
+             </div>
+          </nav>
     </header>
-
     <%= yield %>
   </body>
 </html>

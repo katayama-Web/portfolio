@@ -1,25 +1,60 @@
+<div class = "container">
+  <div class = "row">
+    <div class = "col-lg-6">
+      <div class = "h2">
 <%= @post.title %>
-<%= image_tag @post.post_image, size: "200x200" %>
+      </div>
+
+<%= image_tag @post.post_image, size: "600x400" %>
 <div>
   <h4>撮影機材・設定</h4>
-  <%= @post.camara %>
-  <%= @post.lens %>
-  <%= @post.iso %>
-  <%= @post.shutter_speed %>
-  <%= @post.f_number %>
-  <%= @post.remark %>
+  <div>
+  カメラ: <%= @post.camara %>
+  </div>
+  <div>
+  レンズ: <%= @post.lens %>
+  </div>
+  <div>
+  iso感度: <%= @post.iso %>
+  </div>
+  <div>
+  シャッタースピード: <%= @post.shutter_speed %>
+  </div>
+  <div>
+  f値: <%= @post.f_number %>
+  </div>
+  <div>
+  備考欄:<%= @post.remark %>
+  </div>
 </div>
+</div>
+<div class = "col-lg-6">
 <div>
   <h4>撮影した場所</h4>
+  <div>
   <%= @post.location %>
+  </div>
   <h4>撮影日時</h4>
+  <div>
   <%= @post.shooting_datetime %>
+  </div>
   <h4>本文</h4>
+  <div>
   <%= @post.body %>
+  </div>
 </div>
-
+</div>
+<div class = "row">
 <div>
+  <div>
   <p>コメント件数：<%= @post.post_comments.count %></p>
+  </div>
+  <div>
+  <%= form_with model: [@post, @post_comment] do |f| %>
+    <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに入力" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
   <% @post.post_comments.each do |post_comment| %>
     <%= post_comment.user.name %>
     <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
@@ -32,29 +67,28 @@
   <% end %>
 </div>
 <div>
-  <%= form_with model: [@post, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
 <% if @post.favorited_by?(current_user) %>
-    <p>
+    <p class= "btn btn-outline-secondary">
       <%= link_to post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %> いいね
+        ♥<%= @post.favorites.count %>いいね
       <% end %>
     </p>
     <% else %>
-    <p>
+    <p class = "btn btn-outline-secondary">
       <%= link_to post_favorites_path(@post), method: :post do %>
         ♡<%= @post.favorites.count %> いいね
       <% end %>
     </p>
   <% end %>
+  </div>
   <% if @user == current_user %>
-    <p><%= link_to "投稿編集", edit_post_path(@post) %></p>
-    <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
+    <p><%= link_to "投稿編集", edit_post_path(@post), class: "btn btn-primary" %></p>
+    <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></p>
   <% end %>
   <% if admin_signed_in? %>
     <p><%= link_to "投稿編集", edit_post_path(@post) %></p>
     <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
   <% end %>
+  </div>
+  </div>
+</div>
