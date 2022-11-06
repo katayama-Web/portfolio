@@ -11,5 +11,7 @@ class User < ApplicationRecord
   has_many :post_comments
   has_many :favorites, dependent: :destroy
 
-
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
 end

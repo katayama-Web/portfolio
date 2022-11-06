@@ -18,6 +18,8 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   get 'mypage' => 'users#mypage'
   get 'users/:id/favorites' => 'users#favorites', as: 'favorite_posts'
   get "users/:id/privates" => "users#privates", as: 'private_posts'
+  get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+  patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   resources :users
   resources :genres
   delete 'posts/:id' => 'posts#destroy', as: 'destroy_post'
