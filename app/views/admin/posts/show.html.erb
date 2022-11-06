@@ -53,12 +53,7 @@
   <div>
   <p>コメント件数：<%= @post.post_comments.count %></p>
   </div>
-  <div>
-  <%= form_with model: [@post, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに入力" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
+
   <% @post.post_comments.each do |post_comment| %>
     <%= post_comment.user.name %>
     <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
@@ -71,28 +66,16 @@
   <% end %>
 </div>
 <div>
-
-<% if @post.favorited_by?(current_user) %>
-    <p class= "btn btn-outline-secondary">
-      <%= link_to post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %>いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p class = "btn btn-outline-secondary">
-      <%= link_to post_favorites_path(@post), method: :post do %>
-        ♡<%= @post.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-  </div>
+  <p class = "btn btn-outline-secondary">
+    ♡<%= @post.favorites.count %> いいね
+  </p>
+</div>
   <% if @user == current_user %>
     <p><%= link_to "投稿編集", edit_post_path(@post), class: "btn btn-primary" %></p>
     <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></p>
   <% end %>
   <% if admin_signed_in? %>
-    <p><%= link_to "投稿編集", edit_post_path(@post) %></p>
-    <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></p>
+    <p><%= link_to "削除", destroy_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></p>
   <% end %>
   </div>
   </div>

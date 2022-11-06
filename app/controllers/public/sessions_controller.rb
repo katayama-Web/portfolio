@@ -17,6 +17,13 @@ class Public::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
+  def after_sign_up_path_for(resource)
+    mypage_path
+  end
+
+  def after_update_path_for(resource)
+    mypage_path
+  end
 
   protected
   def reject_user

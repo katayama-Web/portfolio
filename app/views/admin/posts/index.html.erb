@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class = "col-lg-4">
+  <!-- 投稿検索部分 -->
+<h4>キーワード検索</h4>
+<%= form_with url: search_posts_path, local: true, method: :get do |form| %>
+    <%= form.text_field :keyword %>
+    <%= form.submit "検索" %>
+<% end %>
+
+<h4>ジャンル検索</h4>
+<% @genre.each do |genre| %>
+<%= link_to genre.name, genre_path(genre.id) %>
+<% end %>
+</div>
+
+<!-- 投稿一覧部分 -->
+<div class = "col-lg-6">
+<table>
+<% @posts.each do |post| %>
+  <div class = "h2">
+    <% if post.user.profile_image.attached? %><%= link_to image_tag(post.user.profile_image, size: "100x100"), admin_user_path(post.user.id) %>
+      <% else %><%= image_tag 'noimage', size: "100x100" %>
+    <% end %><%= post.user.name %>
+  </div>
+  <div><%= link_to image_tag(post.post_image, size: "300x200"), admin_post_path(post.id) %></div>
+  <div class = "h3"><%= post.title %></div>
+  <p class = "text-center"><%= link_to "#{post.post_comments.count} コメント", admin_post_path(post.id) %></p>
+<% end %>
+</table>
+</div>
+</div>
+</div>

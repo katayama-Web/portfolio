@@ -13,12 +13,17 @@ class PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to mypage_path
+    if user_signed_in?
+      redirect_to mypage_path(params[:post_id])
+    elsif admin_signed_in?
+      redirect_to admin_posts_path(params[:post_id])
+    end
   end
 
   def index
     @post = Post.status_public.order(created_at: :desc)
     @posts = @post.all
+    @genre = Genre.all
   end
 
   def edit
@@ -55,7 +60,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :camara, :lens, :iso, :f_number, :shutter_speed, :remark, :status, :user_id, :genre_id)
+    params.require(:post).permit(:title, :body, :post_image, :camara, :lens, :iso, :f_number, :shutter_speed, :remark, :location, :shooting_datetime, :status, :user_id, :genre_id)
   end
 
   def set_post

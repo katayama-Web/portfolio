@@ -7,7 +7,13 @@
 <% else %>
   <%= image_tag 'noimage', size: "200x200" %>
 <% end %>
-  <div><%= link_to "非公開にした投稿", private_posts_path(@user.id), class: "btn btn-primary" %> <%= link_to "プロフィールを編集", edit_user_path(@user.id), class: "btn btn-primary" %></div>
+  <div>
+    <%= link_to "非公開にした投稿", private_posts_path(@user.id), class: "btn btn-primary" %>
+    <%= link_to "プロフィールを編集", edit_user_path(@user.id), class: "btn btn-primary" %>
+  </div>
+  <div>
+    <%= link_to "いいねした投稿", favorite_posts_path(@user.id), class: "btn btn-primary" %>
+  </div>
   </div>
   <div class ="col-lg-4">
     <h3>マイプロフィール</h3>

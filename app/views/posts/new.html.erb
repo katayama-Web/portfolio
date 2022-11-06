@@ -1,9 +1,12 @@
-<h2>新規投稿ページ</h2>
+<div class = "container">
+  <h2>新規投稿ページ</h2>
+  <div class = "row">
+    <div class = "col-lg-6">
   <%= form_with model: @post do |f| %>
     <h4>投稿のタイトル</h4>
     <%= f.text_field :title %>
 
-    <h4>!画像表示部分!</h4>
+    <h4>投稿画像</h4>
     <%= f.file_field :post_image, accept: "image/*" %>
 
     <h4>撮影機材・設定</h4>
@@ -12,11 +15,16 @@
     <p>iso</p><%= f.text_field :iso %>
     <p>シャッタースピード</p><%= f.text_field :shutter_speed %>
     <p>f値</p><%= f.text_field :f_number %>
-    <p>備考</p><%= f.text_area :remark %>
-
+    <p>備考欄</p><%= f.text_area :remark %>
+</div>
+<div class = "col-lg-6">
     <h4>投稿本文</h4>
     <%= f.text_area :body %>
 
+    <h4>撮影した場所</h4>
+    <%= f.text_area :location %>
+    <h4>撮影日時</h4>
+    <%= f.text_area :shooting_datetime %>
     <h4>ジャンル</h4>
     <%= f.collection_select :genre_id, Genre.all, :id, :name %>
 
@@ -28,3 +36,6 @@
 
     <%= f.submit '投稿する' %>
   <% end %>
+  </div>
+  </div>
+</div>
