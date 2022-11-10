@@ -4,8 +4,6 @@
     <div class ="col-lg-4">
 <% if @user.profile_image.attached? %>
   <%= image_tag @user.profile_image, size: "200x200" %>
-<% else %>
-  <%= image_tag(asset_path('noimage.png'), size: "200x200") %>
 <% end %>
   <div>
     <%= link_to "非公開にした投稿", private_posts_path(@user.id), class: "btn btn-primary" %>
