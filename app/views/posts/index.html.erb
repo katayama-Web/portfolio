@@ -25,7 +25,7 @@
           <% if post.user.profile_image.attached? %>
             <%= link_to image_tag(post.user.profile_image, class: "rounded-circle", size: "100x100"), user_path(post.user.id) %>
           <% else %>
-            <%= image_tag 'noimage', class: "rounded-circle", size: "100x100" %>
+            <%= image_tag(asset_path('noimage.png'), class: "rounded-circle", size: "100x100" %>
           <% end %>
           <%= post.user.name %>
         </div>
