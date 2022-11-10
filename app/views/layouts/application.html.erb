@@ -14,8 +14,7 @@
     <header class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
           <nav class="navbar navbar-expand-sm navbar-light text-dark bg-dark" id="home">
             <%= link_to 'hishatai', (admin_signed_in? ? admin_posts_path : root_path ), class: "nav-link text-white" %>
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav flex">
               <% if admin_signed_in? %>
                 <li><%= link_to 'ユーザー一覧',  admin_users_path, class: "nav-link text-white" %></li>
                 <li><%= link_to 'ジャンル管理',  new_admin_genre_path, class: "nav-link text-white" %></li>
@@ -31,7 +30,6 @@
                 <li><%= link_to 'ログイン', new_user_session_path, class: "nav-link text-white" %></li>
               <% end %>
              </ul>
-             </div>
           </nav>
     </header>
     <%= yield %>

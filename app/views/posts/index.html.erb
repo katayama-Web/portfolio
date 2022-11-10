@@ -1,33 +1,39 @@
 <div class="container">
   <div class="row">
-    <div class = "col-lg-4">
+    <div class = "sidebar col-lg-4">
   <!-- 投稿検索部分 -->
-<h4>キーワード検索</h4>
-<%= form_with url: search_posts_path, local: true, method: :get do |form| %>
-    <%= form.text_field :keyword %>
-    <%= form.submit "検索" %>
-<% end %>
+      <h4>キーワード検索</h4>
+        <%= form_with url: search_posts_path, local: true, method: :get do |form| %>
+          <%= form.text_field :keyword %>
+          <%= form.submit "検索" %>
+        <% end %>
 
-<h4>ジャンル検索</h4>
-<% @genre.each do |genre| %>
-<%= link_to genre.name, genre_path(genre.id) %>
-<% end %>
-</div>
-
+      <h4>ジャンル検索</h4>
+      <table>
+        <% @genre.each do |genre| %>
+        <div>
+          <%= link_to genre.name, genre_path(genre.id), class: "h3" %>
+        </div>
+        <% end %>
+      </table>
+    </div>
 <!-- 投稿一覧部分 -->
-<div class = "col-lg-6">
-<table>
-<% @posts.each do |post| %>
-  <div class = "h2">
-    <% if post.user.profile_image.attached? %><%= link_to image_tag(post.user.profile_image, size: "100x100"), user_path(post.user.id) %>
-      <% else %><%= image_tag 'noimage', size: "100x100" %>
-    <% end %><%= post.user.name %>
+    <div class = "col-lg-6">
+      <table>
+      <% @posts.each do |post| %>
+        <div class = "h3">
+          <% if post.user.profile_image.attached? %>
+            <%= link_to image_tag(post.user.profile_image, class: "rounded-circle", size: "100x100"), user_path(post.user.id) %>
+          <% else %>
+            <%= image_tag 'noimage', class: "rounded-circle", size: "100x100" %>
+          <% end %>
+          <%= post.user.name %>
+        </div>
+        <div class = "h3"><%= post.title %></div>
+        <div><%= link_to image_tag(post.post_image, size: "600x400"), post_path(post.id) %></div>
+        <p class = "text-right"><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+      <% end %>
+      </table>
+    </div>
   </div>
-  <div><%= link_to image_tag(post.post_image, size: "300x200"), post_path(post.id) %></div>
-  <div class = "h3"><%= post.title %></div>
-  <p class = "text-center"><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-<% end %>
-</table>
-</div>
-</div>
 </div>

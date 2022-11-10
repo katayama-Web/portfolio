@@ -2,75 +2,107 @@
   <div class = "row">
     <div class = "col-lg-6">
       <div class = "h2">
-<%= @post.title %>
+        <%= @post.title %>
       </div>
-
-<%= image_tag @post.post_image, size: "600x400" %>
-<div>
-  <h4>撮影機材・設定</h4>
+      <div>
+        <%= image_tag @post.post_image, size: "600x400" %>
+      </div>
+      <div>
+        <h4>撮影機材・設定</h4>
+          <div>
+            <p>カメラ: <%= @post.camara %></p>
+          </div>
+          <div>
+            <p>レンズ: <%= @post.lens %></p>
+          </div>
+          <div>
+            <p>iso感度: <%= @post.iso %></p>
+          </div>
+          <div>
+            <p>シャッタースピード: <%= @post.shutter_speed %></p>
+          </div>
+          <div>
+            <p>f値: <%= @post.f_number %></p>
+          </div>
+          <div>
+            <p>備考欄:<%= @post.remark %></p>
+          </div>
+      </div>
+    </div>
+    <div class = "col-lg-2"></div>
+    <div class = "col-lg-4">
+      <div>
+        <h4>撮影した場所</h4>
+        <div>
+          <p><%= @post.location %></p>
+        </div>
+        <h4>撮影日時</h4>
+        <div>
+          <p><%= @post.shooting_datetime %></p>
+        </div>
+        <h4>作品の説明</h4>
+        <div>
+          <p><%= @post.body %></p>
+        </div>
+        <h4>ジャンル</h4>
+        <div>
+         <p><%= link_to @post.genre.name, genre_path(@post.genre) %></p>
+        </div>
+        <h4>投稿したユーザー</h4>
+        <div class = "h4">
+          <% if @post.user.profile_image.attached? %>
+            <%= link_to image_tag(@post.user.profile_image, class: "rounded-circle", size: "100x100"), user_path(@post.user.id) %>
+          <% else %>
+            <%= image_tag 'noimage', class: "rounded-circle", size: "100x100" %>
+          <% end %>
+          <%= @post.user.name %></div>
+      </div>
+    </div>
+  <div class = "row">
+    <div>
+      <div>
+        <p>コメント件数：<%= @post.post_comments.count %></p>
+      </div>
+      <div>
+        <%= form_with model: [@post, @post_comment] do |f| %>
+          <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに入力" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
+      <div>
+        <% @post.post_comments.each do |post_comment| %>
+          <div>
+            <div class = "row">
+              <div class = "col">
+                <% if post_comment.user.profile_image.attached? %>
+                  <%= link_to image_tag(post_comment.user.profile_image, class: "rounded-circle", size: "50x50"), user_path(post_comment.user.id) %>
+                <% else %>
+                  <%= image_tag 'noimage', class: "rounded-circle", size: "50x50" %>
+                <% end %>
+              </div>
+              <div class = "col h4">
+                <%= post_comment.user.name %>
+              </div>
+              <div class = "h5">
+                <%= post_comment.comment %>
+              </div>
+              <div class = "col">
+                <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class = "col">
+                <% if post_comment.user == current_user %>
+                  <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+                <% end %>
+                <% if admin_signed_in? %>
+                  <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <div>
-  カメラ: <%= @post.camara %>
-  </div>
-  <div>
-  レンズ: <%= @post.lens %>
-  </div>
-  <div>
-  iso感度: <%= @post.iso %>
-  </div>
-  <div>
-  シャッタースピード: <%= @post.shutter_speed %>
-  </div>
-  <div>
-  f値: <%= @post.f_number %>
-  </div>
-  <div>
-  備考欄:<%= @post.remark %>
-  </div>
-</div>
-</div>
-<div class = "col-lg-6">
-<div>
-  <h4>撮影した場所</h4>
-  <div>
-  <%= @post.location %>
-  </div>
-  <h4>撮影日時</h4>
-  <div>
-  <%= @post.shooting_datetime %>
-  </div>
-  <h4>本文</h4>
-  <div>
-  <%= @post.body %>
-  </div>
-  <h4>ジャンル</h4>
-  <div>
-  <%= link_to @post.genre.name, genre_path(@post.genre) %>
-  </div>
-</div>
-</div>
-<div class = "row">
-<div>
-  <div>
-  <p>コメント件数：<%= @post.post_comments.count %></p>
-  </div>
-  <div>
-  <%= form_with model: [@post, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに入力" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-  <% @post.post_comments.each do |post_comment| %>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-    <% if post_comment.user == current_user %>
-      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
-    <% end %>
-    <% if admin_signed_in? %>
-      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
-    <% end %>
-  <% end %>
-</div>
-<div>
 
 <% if @post.favorited_by?(current_user) %>
     <p class= "btn btn-outline-secondary">
