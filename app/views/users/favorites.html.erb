@@ -7,7 +7,7 @@
   <% if favorite.post.user.profile_image.attached? %>
     <%= image_tag(favorite.post.user.profile_image, size: "100x100") %>
   <% else %>
-    <%= image_tag(asset_path('noimage.png'), size: "100x100" %>
+    <%= image_tag(asset_path('noimage.png'), size: "100x100") %>
   <% end %><%= favorite.post.user.name %></div>
   <div><%= link_to image_tag(favorite.post.post_image, size: "300x200"), post_path(favorite.post.id) %></div>
   <div class = "h3"><%= favorite.post.title %></div>
