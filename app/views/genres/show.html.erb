@@ -7,9 +7,9 @@
                 <td class="item">
                   <div class = "h2">
                     <% if post.user.profile_image.attached? %>
-                      <%= image_tag(post.user.profile_image, size: "100x100") %>
+                      <%= image_tag(post.user.profile_image, class: "rounded-circle", size: "100x100") %>
                     <% else %>
-                      <%= image_tag(asset_path('noimage.png'), size: "100x100") %>
+                      <%= image_tag(asset_path('noimage.png'), class: "rounded-circle", size: "100x100") %>
                     <% end %><%= post.user.name %>
                   </div>
                   <div><%= link_to image_tag(post.post_image, size: "300x200"), post_path(post.id) %></div>
